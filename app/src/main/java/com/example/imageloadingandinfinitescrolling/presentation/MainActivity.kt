@@ -1,7 +1,6 @@
-package com.example.imageloadingandinfinitescrolling
+package com.example.imageloadingandinfinitescrolling.presentation
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -10,9 +9,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.imageloadingandinfinitescrolling.ui.theme.ImageLoadingAndinfiniteScrollingTheme
+import com.example.baseArchitecture.presentation.BaseActivity
+import com.example.imageloadingandinfinitescrolling.presentation.ui.theme.ImageLoadingAndinfiniteScrollingTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 
-class MainActivity : ComponentActivity() {
+class MainActivity : BaseActivity() {
+    val baseUrl = "https://picsum.photos/v2/list?page=2&limit=100"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

@@ -1,4 +1,4 @@
-package com.example.imageloadingandinfinitescrolling.ui.theme
+package com.example.imageloadingandinfinitescrolling.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

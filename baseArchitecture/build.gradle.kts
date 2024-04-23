@@ -1,23 +1,17 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
+
 android {
-    namespace = "com.example.imageloadingandinfinitescrolling"
+    namespace = "com.example.baseArchitecture"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.imageloadingandinfinitescrolling"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -47,6 +41,22 @@ android {
 }
 
 dependencies {
-  implementation(project(":baseArchitecture"))
-
+api(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    api(libs.androidx.core.ktx)
+    api(libs.androidx.lifecycle.runtime.ktx)
+    api(libs.androidx.activity.compose)
+    api(platform(libs.androidx.compose.bom))
+    api(libs.androidx.ui)
+    api(libs.androidx.ui.graphics)
+    api(libs.androidx.ui.tooling.preview)
+    api(libs.androidx.material3)
+    api(libs.timber)
+    testApi(libs.junit)
+    androidTestApi(libs.androidx.junit)
+    androidTestApi(libs.androidx.espresso.core)
+    androidTestApi(platform(libs.androidx.compose.bom))
+    androidTestApi(libs.androidx.ui.test.junit4)
+    debugApi(libs.androidx.ui.tooling)
+    debugApi(libs.androidx.ui.test.manifest)
 }

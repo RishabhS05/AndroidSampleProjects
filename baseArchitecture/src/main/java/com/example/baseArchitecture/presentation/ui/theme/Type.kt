@@ -1,4 +1,4 @@
-package com.example.imageloadingandinfinitescrolling.ui.theme
+package com.example.baseArchitecture.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
