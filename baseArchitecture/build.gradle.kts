@@ -17,8 +17,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -29,6 +31,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -41,8 +44,18 @@ android {
 }
 
 dependencies {
-api(libs.hilt.android)
+
+    //network
+    api(libs.retrofit)
+    api(libs.converter.gson)
+    api(libs.okhttp)
+    api(libs.logging.interceptor)
+    api(libs.gson)
+    api(libs.retrofit2.kotlin.coroutines.adapter)
+    //hilt
+    api(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    //android-compose
     api(libs.androidx.core.ktx)
     api(libs.androidx.lifecycle.runtime.ktx)
     api(libs.androidx.activity.compose)
@@ -51,7 +64,9 @@ api(libs.hilt.android)
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)
     api(libs.androidx.material3)
+    //logs
     api(libs.timber)
+    //testing
     testApi(libs.junit)
     androidTestApi(libs.androidx.junit)
     androidTestApi(libs.androidx.espresso.core)

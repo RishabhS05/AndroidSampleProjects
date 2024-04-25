@@ -22,8 +22,14 @@ android {
 
     buildTypes {
         release {
+            isDebuggable = false
             isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"https://picsum.photos/\"")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
+            isDebuggable = true
+            buildConfigField("String", "BASE_URL", "\"https://picsum.photos/\"")
         }
     }
     compileOptions {
@@ -35,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -48,5 +55,4 @@ android {
 
 dependencies {
   implementation(project(":baseArchitecture"))
-
 }

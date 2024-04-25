@@ -9,12 +9,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.baseArchitecture.presentation.BaseActivity
+import com.example.baseArchitecture.presentation.ui.base.BaseActivity
 import com.example.imageloadingandinfinitescrolling.presentation.ui.theme.ImageLoadingAndinfiniteScrollingTheme
-import kotlinx.coroutines.flow.MutableStateFlow
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
-    val baseUrl = "https://picsum.photos/v2/list?page=2&limit=100"
+val baseUrl = "https://picsum.photos/v2/list?page=2&limit=100"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

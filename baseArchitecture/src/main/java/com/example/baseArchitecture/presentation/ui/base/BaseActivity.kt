@@ -1,4 +1,4 @@
-package com.example.baseArchitecture.presentation
+package com.example.baseArchitecture.presentation.ui.base
 
 import androidx.activity.ComponentActivity
 
