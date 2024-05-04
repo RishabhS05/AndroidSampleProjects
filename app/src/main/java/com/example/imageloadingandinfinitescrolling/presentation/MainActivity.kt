@@ -2,45 +2,41 @@ package com.example.imageloadingandinfinitescrolling.presentation
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.baseArchitecture.presentation.ui.base.BaseActivity
+import com.example.baseArchitecture.presentation.ui.widget.LoadImage
+import com.example.imageloadingandinfinitescrolling.BuildConfig.BASE_URL
 import com.example.imageloadingandinfinitescrolling.presentation.ui.theme.ImageLoadingAndinfiniteScrollingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
-val baseUrl = "https://picsum.photos/v2/list?page=2&limit=100"
+
+    private val  viewModel : MainViewModel  by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.getImageList()
         setContent {
             ImageLoadingAndinfiniteScrollingTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
-                }
+              val state = viewModel.uiState.collectAsState()
+              LazyColumn(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+                  items(
+                      count = state.value.data.size
+                  ){ index->
+                      //do not do this as my api will not change so  need to edit here
+                      val item =  state.value.data[index]
+                      Text(text = "id : ${item.id} ${item.author}")
+                     LoadImage(url = "$BASE_URL/id/${item.id}/1080/720")
+                      }
+                      }
+                  }
+              }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ImageLoadingAndinfiniteScrollingTheme {
-        Greeting("Android")
-    }
-}

@@ -11,14 +11,18 @@ android {
 
     defaultConfig {
         minSdk = 24
+        multiDexEnabled =true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+
             isMinifyEnabled = false
 
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
         }
 
     }
@@ -53,7 +57,7 @@ dependencies {
     api(libs.gson)
     api(libs.retrofit2.kotlin.coroutines.adapter)
     //hilt
-    api(libs.hilt.android)
+    implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     //android-compose
     api(libs.androidx.core.ktx)
@@ -66,6 +70,8 @@ dependencies {
     api(libs.androidx.material3)
     //logs
     api(libs.timber)
+    //multi-dex
+    api(libs.androidx.multidex)
     //testing
     testApi(libs.junit)
     androidTestApi(libs.androidx.junit)

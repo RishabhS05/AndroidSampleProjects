@@ -12,20 +12,16 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
-class NetworkModule : BaseNetworkModule() {
-
+class NetworkModule {
  @Provides
- @Singleton
- fun baseUrlProviderMethod ( baseUrlProvider : IBaseUrlProvider)  : IBaseUrlProvider = BaseURLProvider()
-
+ fun baseUrlProviderMethod ()  : IBaseUrlProvider = BaseURLProvider()
      @Provides
     @Singleton
-    fun provideApiService(retrofit : Retrofit ) : APIService = retrofit.create(APIService::class.java)
+    fun provideApiService(retrofit : Retrofit) : APIService = retrofit.create(APIService::class.java)
 }
-class BaseURLProvider() : IBaseUrlProvider{
+class BaseURLProvider : IBaseUrlProvider{
     override fun getBaseUrl(): String {
         return BuildConfig.BASE_URL
     }

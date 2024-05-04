@@ -1,4 +1,5 @@
 package com.example.baseArchitecture.di
+import com.example.baseArchitecture.BuildConfig
 import com.example.baseArchitecture.dataLayer.network.RequestInterceptor
 import com.example.baseArchitecture.domain.IBaseUrlProvider
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class BaseNetworkModule {
+open class BaseNetworkModule {
     @Provides
     @Singleton
     fun providesRetrofit(okHttpClient: OkHttpClient, baseUrlProvider: IBaseUrlProvider): Retrofit {
@@ -36,17 +37,12 @@ abstract class BaseNetworkModule {
         val builder = OkHttpClient.Builder()
         builder.apply {
             connectTimeout(5L, TimeUnit.MINUTES)
-            //  if (BuildConfig.DEBUG)
-            builder.addInterceptor(providerHttpsLoggingInterceptor())
+              if (BuildConfig.DEBUG) builder.addInterceptor(providerHttpsLoggingInterceptor())
             builder.addInterceptor(requestInterceptor)
-
-//            val interceptors = getInterceptors(pref)
-//            interceptors.forEach { interceptor ->
-//                addInterceptor(interceptor)
-//            }
         }
         return builder.build()
     }
+
 
 
 
@@ -63,9 +59,7 @@ abstract class BaseNetworkModule {
     @Provides
     fun providerHttpsLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
-            level =
-                HttpLoggingInterceptor.Level.BODY
-
+            level = HttpLoggingInterceptor.Level.BODY
         }
     }
 }

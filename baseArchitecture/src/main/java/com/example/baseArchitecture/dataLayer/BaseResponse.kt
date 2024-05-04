@@ -1,4 +1,6 @@
 package com.example.baseArchitecture.dataLayer
 
+import retrofit2.Response
+
 interface  IBaseResponse
-class BaseResponse() : IBaseResponse{}
+abstract class BaseResponse : IBaseResponse{}
