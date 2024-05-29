@@ -21,21 +21,24 @@ class MainViewModel @Inject constructor(private val imageListUseCase : ImageList
     private val _uiState = MutableStateFlow(ImageListState(isLoading = true))
     val uiState: StateFlow<ImageListState> = _uiState.asStateFlow()
  var page = 1
-     fun getImageList(){
+     fun getImageList() {
          makeApiRequest(taskCode = TaskCode.GET_IMAGE_LIST){
-             imageListUseCase.invoke(page =page, limit =  LIST_LIMIT)}
+             imageListUseCase.invoke(page =page, limit =  LIST_LIMIT)
+         }
      }
 
     override fun onSuccess(taskCode: BaseTaskCode, response: Any) {
         super.onSuccess(taskCode, response)
         when(taskCode){
             TaskCode.GET_IMAGE_LIST ->{
+             val response =   (response as ArrayList<ImageDataModel>)
                 _uiState.update {
+                    it.data.addAll(response)
                     it.copy(
-                        isLoading = false, data = (response as ArrayList<ImageDataModel>)
-                    )
-
+                        isLoading = false,
+                        loadNextPage =false)
                 }
+
                 page++
             }
 
@@ -44,9 +47,19 @@ class MainViewModel @Inject constructor(private val imageListUseCase : ImageList
 
     override fun onFailure(taskCode: BaseTaskCode, exception: RequestState.Error) {
         super.onFailure(taskCode, exception)
+        _uiState.update {
+            it.copy(
+                isLoading = false,
+                loadNextPage =true)
+        }
     }
 
     override fun onLoading(taskCode: BaseTaskCode) {
         super.onLoading(taskCode)
+        _uiState.update {
+            it.copy(
+                isLoading = true,
+                loadNextPage =false)
+        }
     }
 }

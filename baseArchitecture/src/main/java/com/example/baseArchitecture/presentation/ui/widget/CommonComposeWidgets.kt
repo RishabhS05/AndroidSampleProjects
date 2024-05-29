@@ -36,11 +36,12 @@ import java.net.URL
 
 @SuppressLint("CoroutineCreationDuringComposition", "UnrememberedMutableState")
 @Composable
-fun LoadImage(url: String,width : Int=1080,height :Int= 720 ,  modifier: Modifier = Modifier) {
+fun LoadImage(url: String,imageId : String, width : Int=1080,height :Int= 720 ,  modifier: Modifier = Modifier) {
     val bitmap = remember(url) { mutableStateOf<Bitmap?>(null) }
     val loader=  BitmapDownloader()
+    val context = LocalContext.current
     LaunchedEffect(url) {
-        bitmap.value = loader.getImageBitmap(url)
+        bitmap.value = loader.loadImage(imageId, url,context)
     }
 
     bitmap.value?.let { loadedBitmap ->
