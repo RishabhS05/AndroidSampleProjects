@@ -3,7 +3,6 @@ package com.example.imageloadingandinfinitescrolling.presentation
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -48,7 +47,7 @@ class MainActivity : BaseActivity() {
                 //do not do this as my api will not change so  need to edit here
                 val item =  state.value.data[index]
                 Text(text = "id : ${item.id} ${item.author}")
-                LoadImage(url = "$BASE_URL/id/${item.id}/1080/720", imageId = item.id)
+                LoadImage(url = "$BASE_URL/id/${item.id}/1080/720", imageId = item.id,){}
             }
         }
     }

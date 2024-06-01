@@ -5,6 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -20,6 +24,7 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.example.baseArchitecture.bitmapDownloader.BitmapDownloader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -36,7 +41,7 @@ import java.net.URL
 
 @SuppressLint("CoroutineCreationDuringComposition", "UnrememberedMutableState")
 @Composable
-fun LoadImage(url: String,imageId : String, width : Int=1080,height :Int= 720 ,  modifier: Modifier = Modifier) {
+fun LoadImage(url: String,imageId : String, width : Int=1080,height :Int= 720 ,  modifier: Modifier = Modifier, onClick : ()-> Unit) {
     val bitmap = remember(url) { mutableStateOf<Bitmap?>(null) }
     val loader=  BitmapDownloader()
     val context = LocalContext.current
@@ -48,7 +53,7 @@ fun LoadImage(url: String,imageId : String, width : Int=1080,height :Int= 720 , 
         Image(
             bitmap = loadedBitmap.asImageBitmap(),
             contentDescription = "",
-            modifier = modifier
+            modifier = modifier.fillMaxSize().clickable { onClick() }
         )
     }
 }
